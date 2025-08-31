@@ -1,3 +1,6 @@
+---
+creation_date: 2025-08-31, Sun, 21.52.44 pm
+---
 # Spotify Song Popularity Prediction
 
 ## Project Goal
@@ -7,7 +10,7 @@ The goal of this project is to build a machine learning model that predicts the 
 ## Dataset
 The dataset was sourced from Kaggle and includes two main files: `tracks.csv` and `artists.csv`, containing detailed audio features and artist metrics.
 
-*(Note: Due to file size, the data is not included in this repository but can be downloaded from [link to Kaggle dataset]).*
+*(Note: Due to file size, the data is not included in this repository but can be downloaded from [here](https://www.kaggle.com/datasets/yamaerenay/spotify-dataset-19212020-600k-tracks)).*
 
 ---
 ## Installation & Setup
@@ -15,8 +18,8 @@ To run this project, follow these steps:
 
 1.  Clone the repository:
     ```bash
-    git clone [your-repo-url]
-    cd spotify-popularity-project
+    git clone gh repo clone j-ar7/spotify-song-popularity-prediction
+    cd spotify-song-popularity-prediction
     ```
 2.  Create and activate a virtual environment:
     ```bash
@@ -27,6 +30,7 @@ To run this project, follow these steps:
     ```bash
     pip install -r requirements.txt
     ```
+4.  Download dataset from kaggle in ```./data```
 
 ---
 ## Usage
