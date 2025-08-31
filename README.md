@@ -1,7 +1,7 @@
 # Spotify Song Popularity Prediction
 
 ## Project Goal
-The goal of this project is to build a machine learning model that predicts the popularity score of a song based on its audio features and artist information.
+The goal of this project is to build a machine learning model using regression algorithms that predicts the popularity score of a song based on its audio features and artist information.
 
 ---
 ## Dataset
@@ -63,7 +63,7 @@ The project is divided into two main scripts that should be run in order:
 
 ## Model Performance
 
-Several regression models were trained to predict song popularity, with the **Random Forest Regressor** (`n_estimators=60`) selected as the final model due to its superior predictive accuracy.
+Several regression models were trained to predict song popularity, with the **Random Forest Regressor** (`n_estimators=60`) selected as the final model due to its better accuracy.
 - **RMSE**: 9.16
 - **R-squared (R²)**: 0.75
 
