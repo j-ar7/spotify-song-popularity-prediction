@@ -32,9 +32,9 @@ To run this project, follow these steps:
 ---
 ## Usage
 The project is divided into two main scripts that should be run in order: 
-1. **Data Preprocessing & EDA**: `python scripts/01_eda.py` 
-2. **Model Training**: `python scripts/02_train.py`
-3. **Figures & Reports:** `python scripts/03_reports.py`
+1. **Data Preprocessing & EDA**: `python 01_eda.py` 
+2. **Model Training**: `python 02_train.py`
+3. **Figures & Reports:** `python 03_reports.py`
 
 ---
 ## Project Workflow
