@@ -57,7 +57,7 @@ The project is divided into two main scripts that should be run in order:
 - **Generate Visuals**: It uses the loaded model and test data to generate two key visualizations:
     1. A bar chart of the **Top 10 Most Important Features** for predicting popularity.
     2. A scatter plot comparing the **Actual vs. Predicted Popularity** scores.
-- **Save Reports**: Both plots are saved as `.png` files to the `reports/figures/` directory, ready to be included in the `README.md` or other project documentation.
+- **Save Reports**: Both plots are saved as `.png` files to the `figures/` directory, ready to be included in the `README.md` or other project documentation.
 
 ---
 
