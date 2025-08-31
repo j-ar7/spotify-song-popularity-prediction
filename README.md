@@ -1,6 +1,3 @@
----
-creation_date: 2025-08-31, Sun, 21.52.44 pm
----
 # Spotify Song Popularity Prediction
 
 ## Project Goal
