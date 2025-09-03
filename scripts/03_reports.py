@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.model_selection import train_test_split
+import time
 
 start = time.perf_counter()
 
@@ -53,7 +54,7 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 
 plt.savefig(os.path.join(output_dir, 'feature_importance.png'), bbox_inches='tight')
-print(f"feature importance plot saved to '{output_dir}/feature_importance.png..'")
+print(f"feature importance plot saved to: {output_dir}/feature_importance.png..")
 plt.close()
 
 X_test_scaled = scaler.transform(X_test)
@@ -69,6 +70,6 @@ plt.xlim(0, 100)
 plt.ylim(0, 100)
 
 plt.savefig(os.path.join(output_dir, 'prediction_scatter_plot.png'), bbox_inches='tight')
-print(f"prediction scatter plot saved to '{output_dir}/prediction_scatter_plot.png..'")
+print(f"prediction scatter plot saved to: {output_dir}/prediction_scatter_plot.png..")
 plt.close()
 print(f'[fin in {time.perf_counter()-start:.3f} s..]')
