@@ -4,6 +4,7 @@ import os
 import matplotlib.pyplot as plt
 import re
 from sklearn.preprocessing import MultiLabelBinarizer
+import time
 
 def get_year(dt):
 	pattern1 = re.compile(r'^(\d{4})-\d{2}-\d{2}$')
@@ -76,8 +77,11 @@ def genre_lis(id_list):
 def filter_top_genres(genre_list):
     return [genre for genre in genre_list if genre in top_genres]
 
+start = time.perf_counter()
 
+print('reading artists.csv..')
 artists_df = pd.read_csv('./data/artists.csv')
+print('reading tracks.csv..')
 tracks_df = pd.read_csv('./data/tracks.csv')
 
 # # nan_in_tracks_df = tracks_df[tracks_df.isnull().any(axis=1)]
@@ -89,20 +93,26 @@ artist_genre_map = artists_df.set_index('id')['genres'].to_dict()
 artist_popu_map = artists_df.set_index('id')['popularity'].to_dict()
 artist_foll_map = artists_df.set_index('id')['followers'].to_dict()
 
+print('combined artist popularity from artist_popu_map..')
 tracks_df['combined_artist_popularity'] = tracks_df['id_artists'].apply(combpopu)
+print('combined artist following count from artist_foll_map..')
 tracks_df['combined_following'] = tracks_df['id_artists'].apply(combfoll)
+print('combined artist genres from artist_genre_map..')
 tracks_df['combined_genres'] = tracks_df['id_artists'].apply(get_all_genres)
+print('formatting release_date and extracting release_year via regex..')
 tracks_df['release_year'] = tracks_df['release_date'].apply(get_year)
 
 all_genres_ls = {}
 tracks_df['combined_genres'].apply(genre_lis)
 
-TOP_N_GENRES = 800
+TOP_N_GENRES = 1500
 sorted_genres = sorted(all_genres_ls.items(), key=lambda item: item[1], reverse=True)
 top_genres = [genre for genre, count in sorted_genres[:TOP_N_GENRES]]
 
+print(f'filtering top {TOP_N_GENRES} genres..')
 tracks_df['filtered_genres'] = tracks_df['combined_genres'].apply(filter_top_genres)
 
+print('multi hot encoding filtered genres..')
 mlb = MultiLabelBinarizer(classes=top_genres)
 genre_encoded_df = pd.DataFrame(
 	mlb.fit_transform(tracks_df.pop('filtered_genres')),
@@ -110,12 +120,19 @@ genre_encoded_df = pd.DataFrame(
 	index=tracks_df.index
 )
 
+print('concatting genre_encoded_df and tracks_df..')
 main_df = pd.concat([tracks_df, genre_encoded_df], axis=1)
 
+print('dropping combined_artist_popularity and combined_following nan entries (<2%)..')
 main_df = main_df.dropna(subset=['combined_artist_popularity']) # nan entries < 2%, no need to impute; same for combined_following as well
+print('dropping combined_genres, id, name, artists, id_artists, release_date..')
 main_df.drop(['combined_genres', 'id', 'name', 'artists', 'id_artists', 'release_date'], axis=1, inplace=True) # excluded features
 
+print()
 main_df.info()
+print()
 os.makedirs('./processed_data', exist_ok=True)
 output_path = './processed_data/model_data.csv'
 main_df.to_csv(output_path, index=False)
+print(f'final df saved to {output_path}..')
+print(f'[fin in {time.perf_counter()-start:.3f} s..]')
