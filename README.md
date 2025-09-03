@@ -43,13 +43,13 @@ The project is divided into three main scripts that should be run in order:
     -   `combined_artist_popularity`: The sum of popularity scores of all artists on a track.
     -   `combined_following`: The sum of followers of all artists on a track.
     -   `combined_genres`: A complete list of all unique genres associated with the track's artists.
--   **Multi-Hot Encoding**: To handle multiple genres per song, the script identifies the top 800 most frequent genres and performs multi-hot encoding, creating a wide DataFrame with binary features for each of these top genres.
+-   **Multi-Hot Encoding**: To handle multiple genres per song, the script identifies the top **N=1500** (out of 4672) most frequent genres and performs multi-hot encoding, creating a wide DataFrame with binary features for each of these top genres.
 -   **Finalization**: The script extracts the `release_year` from the release date and handles missing values for the new combined features before saving the final, model-ready dataset to `processed_data/model_data.csv`.
 
 ### 2. Model Training (`02_train.py`)
 -   **Data Preparation**: This script loads the clean, pre-encoded data from the previous step.
 -   **Splitting & Scaling**: The data is split into 80% for training and 20% for testing. The script then scales all numerical features using `StandardScaler`.
--   **Training**: A `RandomForestRegressor` model with 60 estimators is trained on the prepared data.
+-   **Training**: A `RandomForestRegressor` model with 100 estimators is trained on the prepared data.
 -   **Evaluation**: The model's performance is evaluated on the unseen test set, and its RMSE and R-squared scores are printed to the console.
 -   **Saving**: The trained model and the scaler object are saved to the `saved_models/` directory using `joblib` for later use.
 
@@ -64,7 +64,7 @@ The project is divided into three main scripts that should be run in order:
 ---
 ## Model Performance
 
-Several regression models were trained, with the **Random Forest Regressor** (`n_estimators=60`) selected as the final model due to its superior predictive accuracy.
+Several regression models were trained, with the **Random Forest Regressor** (`n_estimators=200, N=1200`) selected as the final model due to its superior predictive accuracy.
 -   **RMSE**: 9.02
 -   **R-squared (R²)**: 0.76
 
@@ -78,12 +78,16 @@ The scatter plot below visualizes the model's predictions against the actual pop
 #### Model Comparison
 A comparison of the initial models tested (before advanced feature engineering) is detailed below. Both tree-based ensemble models, LightGBM and Random Forest, significantly outperformed the Linear Regression baseline, indicating that the relationships between a song's features and its popularity are complex and non-linear.
 
+Before new features:
 - **Linear Regression**: RMSE 10.9, R-squared 0.64
 - **LGBM (100 estimators)**: RMSE 10.1, R-squared 0.69
-- **Random Forest (40 estimators)**: RMSE 9.19, R-squared 0.74
-- **Random Forest (60 estimators)**: RMSE 9.16, R-squared 0.75 
+- **Random Forest (60 estimators)**: RMSE 9.16, R-squared 0.75
 
-As you can see, the newly engineered features had a significant impact on rmse and r-squared values.
+After new features:
+- **Random Forest (60 estimators)**: RMSE 9.02, R-squared 0.76 (N = 800)
+- **Random Forest (200 estimators)**: RMSE 8.92, R-squared 0.76 (N = 1200)
+
+As you can see, the newly engineered features as well as **Genre factor N** had a significant impact on rmse and r-squared values.
 
 ---
 ## Analysis & Insights
