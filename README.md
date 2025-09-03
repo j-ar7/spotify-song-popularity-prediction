@@ -73,7 +73,7 @@ The scatter plot below visualizes the model's predictions against the actual pop
 
 #### Implications
 -   An **RMSE of 8.93** means the model's predictions are, on average, off by about 8.93 points on the 0-100 popularity scale.
--   An **R-squared of 0.76* indicates that the model can explain approximately **76%** of the variance in a song's popularity based on the features provided.
+-   An **R-squared of 0.76** indicates that the model can explain approximately **76%** of the variance in a song's popularity based on the features provided.
 
 #### Model Comparison
 A comparison of the initial models tested (before advanced feature engineering) is detailed below. Both tree-based ensemble models, LightGBM and Random Forest, significantly outperformed the Linear Regression baseline, indicating that the relationships between a song's features and its popularity are complex and non-linear.
