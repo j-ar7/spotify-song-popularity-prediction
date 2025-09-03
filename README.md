@@ -64,15 +64,15 @@ The project is divided into three main scripts that should be run in order:
 ---
 ## Model Performance
 
-Several regression models were trained, with the **Random Forest Regressor** (`n_estimators=200, N=1200`) selected as the final model due to its superior predictive accuracy.
--   **RMSE**: 9.02
+Several regression models were trained, with the **Random Forest Regressor** (`n_estimators=100, N=1500`) selected as the final model due to its superior predictive accuracy.
+-   **RMSE**: 8.93
 -   **R-squared (R²)**: 0.76
 
 The scatter plot below visualizes the model's predictions against the actual popularity scores, with the red line indicating a perfect prediction.
 ![Prediction Scatter Plot](figures/prediction_scatter_plot.png)
 
 #### Implications
--   An **RMSE of 9.02** means the model's predictions are, on average, off by about 9.02 points on the 0-100 popularity scale.
+-   An **RMSE of 8.93** means the model's predictions are, on average, off by about 8.93 points on the 0-100 popularity scale.
 -   An **R-squared of 0.76* indicates that the model can explain approximately **76%** of the variance in a song's popularity based on the features provided.
 
 #### Model Comparison
@@ -85,7 +85,7 @@ Before new features:
 
 After new features:
 - **Random Forest (60 estimators)**: RMSE 9.02, R-squared 0.76 (N = 800)
-- **Random Forest (200 estimators)**: RMSE 8.92, R-squared 0.76 (N = 1200)
+- **Random Forest (100 estimators)**: RMSE 8.93, R-squared 0.76 (N = 1500) [best]
 
 As you can see, the newly engineered features as well as **Genre factor N** had a significant impact on rmse and r-squared values.
 
